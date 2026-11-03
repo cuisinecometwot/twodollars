@@ -30,6 +30,22 @@ describe('composeAvatar', () => {
     expect(bowlOnly).toBeLessThan(all);
   });
 
+  it('never hides the pet behind the person, with or without a held item', () => {
+    for (const pet of PARTS.pet.filter((p) => p.id !== 'none'))
+      for (const instrument of PARTS.instrument) {
+        const a = { ...DEFAULT_AVATAR, pet: pet.id, instrument: instrument.id };
+        const petOnly = composeAvatar(a, ['pet']);
+        const bowlOnly = composeAvatar(a, ['bowl']);
+        const full = composeAvatar(a);
+        petOnly.forEach((row, y) =>
+          row.forEach((c, x) => {
+            if (c && !bowlOnly[y]![x])
+              expect(full[y]![x], `${pet.id}+${instrument.id} @${x},${y}`).toBe(c);
+          }),
+        );
+      }
+  });
+
   it('places every bowl inside the grid', () => {
     for (const b of PARTS.bowl) {
       const box = bowlBox({ ...DEFAULT_AVATAR, bowl: b.id });

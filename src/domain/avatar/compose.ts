@@ -93,15 +93,15 @@ function paint(grid: Grid, sprite: Sprite, colors: Record<string, string>) {
 
 export type Layer = Slot | 'body' | 'head';
 
-/** Back-to-front draw order. */
+/** Back-to-front draw order. Pets sit beside the legs, so they go in front of the person. */
 export const LAYERS: readonly Layer[] = [
   'mat',
-  'pet',
   'body',
   'shirt',
   'head',
   'hair',
   'instrument',
+  'pet',
   'bowl',
 ];
 
