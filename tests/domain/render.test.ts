@@ -36,7 +36,7 @@ describe('renderReadmeSvg', () => {
   });
 
   it('shows the donate target', () => {
-    expect(renderReadmeSvg(cfg)).toContain('→ ko-fi.com/duke');
+    expect(renderReadmeSvg(cfg)).toContain('♥ ko-fi.com/duke');
     expect(displayUrl('https://patreon.com/' + 'x'.repeat(50))).toHaveLength(34);
   });
 });
