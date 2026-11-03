@@ -62,7 +62,7 @@ describe('renderWidgetMarkup', () => {
   it('includes the QR only when the payload is valid', () => {
     expect(renderWidgetMarkup(cfg, QR)).not.toContain('<details');
     const vn = { ...cfg, qr: 'https://ko-fi.com/duke' };
-    expect(renderWidgetMarkup(vn, QR)).toContain('Show QR (Ko-fi)');
+    expect(renderWidgetMarkup(vn, QR)).toContain('Show QR (donate link)');
   });
 
   it('passes the bowl position and auto interval as data attributes', () => {

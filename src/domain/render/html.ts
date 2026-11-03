@@ -31,6 +31,13 @@ ${SCENE_CSS}
 @keyframes td-hop{50%{transform:translateY(-1.5px)}}
 `;
 
+const QR_KIND_LABEL = {
+  vietqr: 'VietQR',
+  emvco: 'bank',
+  paypay: 'PayPay',
+  link: 'donate link',
+} as const;
+
 export interface WidgetOptions {
   /** Seconds between automatic coin drops (OBS). 0 = only on click. */
   auto?: number;
@@ -57,7 +64,7 @@ export function renderWidgetMarkup(
   const qrCheck = config.qr ? checkQrPayload(config.qr) : null;
   const qrBlock =
     qr && qrCheck?.ok
-      ? `<details class="td-qr"><summary>Show QR (${escapeXml(qrCheck.summary)})</summary>${qrSvg(qr, 150)}</details>`
+      ? `<details class="td-qr"><summary>Show QR (${QR_KIND_LABEL[qrCheck.kind]})</summary>${qrSvg(qr, 150)}</details>`
       : '';
   const auto = opts.auto ? ` data-auto="${Math.max(5, Math.round(opts.auto))}"` : '';
 
