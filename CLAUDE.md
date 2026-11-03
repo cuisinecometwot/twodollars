@@ -1,6 +1,6 @@
 # twodollars (Phố Xin Vía)
 
-Meme-style online begging: everyone gets a pixel avatar, a bowl, a sign and their own donate link. The site never touches money and runs on free tiers only. Full design: `Phố Xin Vía — Tài liệu thiết kế.md`.
+Meme-style online begging: everyone gets a pixel avatar, a bowl, a sign and their own donate link. The site never touches money and runs on free tiers only. Full design doc is kept locally (gitignored, contains personal notes).
 
 **Current goal:** Phase 0 — personal widget generated in the browser (no backend), embedded on Duke's GitHub profile to test traction.
 
@@ -14,7 +14,7 @@ Meme-style online begging: everyone gets a pixel avatar, a bowl, a sign and thei
 - **Non-profit:** no money handled, no commission, no revenue. Success metric: stars/forks/embeds after Duke's profile goes live.
 - **Payments allowed:** allowlisted donate domains (buymeacoffee.com, ko-fi.com, github.com/sponsors, paypal.me, patreon.com) + VietQR/EMVCo + PayPay QR.
 - **UI:** dark street-at-night palette, warm lantern accent, pixel art (32×32 grid), "Press Start 2P" headings. Desktop + mobile browsers.
-- **Deploy:** localhost for now; Cloudflare Pages later (domain undecided).
+- **Deploy:** GitHub Pages (https://cuisinecometwot.github.io/twodollars/) via Actions on push to main. Cloudflare Pages once Phase 1 needs Workers.
 
 ## Stack & architecture
 - React + Vite + TypeScript; Vitest; ESLint + Prettier.
