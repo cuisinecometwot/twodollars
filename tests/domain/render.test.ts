@@ -26,7 +26,7 @@ describe('renderReadmeSvg', () => {
   });
 
   it('stays small enough for a README', () => {
-    expect(renderReadmeSvg(cfg).length).toBeLessThan(15_000);
+    expect(renderReadmeSvg(cfg).length).toBeLessThan(20_000);
     expect(renderReadmeSvg(cfg, QR).length).toBeLessThan(30_000);
   });
 

@@ -4,12 +4,14 @@ import { checkQrPayload } from '../qr';
 import { escapeXml } from '../sign';
 import { avatarLayers, bowlTarget, coinPaths, SCENE_CSS } from './scene';
 import { qrSvg } from './qr';
+import { streetSvg } from './street';
 import type { QrModules } from './svg';
 
 const WIDGET_CSS = `
-.td{display:inline-flex;gap:14px;align-items:center;max-width:100%;box-sizing:border-box;padding:12px 14px;background:#1b1830;color:#f4efe1;border:4px solid #2b1d14;box-shadow:4px 4px 0 rgba(0,0,0,.35);font:14px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;text-align:left}
+.td{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;gap:14px;align-items:center;max-width:100%;box-sizing:border-box;padding:12px 14px;background:#1b1830;color:#f4efe1;border:4px solid #2b1d14;box-shadow:4px 4px 0 rgba(0,0,0,.35);font:14px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;text-align:left}
 .td *{box-sizing:border-box}
-.td-scene{position:relative;flex:none;width:160px;height:160px;padding:0;border:0;background:none;cursor:pointer;font:inherit;color:inherit}
+.td-bg{position:absolute;inset:0;z-index:-1;width:100%;height:100%;shape-rendering:crispEdges}
+.td-scene{position:relative;flex:none;align-self:flex-end;width:160px;height:160px;padding:0;border:0;background:none;cursor:pointer;font:inherit;color:inherit}
 .td-scene:focus-visible{outline:3px solid #f5c542;outline-offset:2px}
 .td-scene>svg{display:block;width:100%;height:100%;shape-rendering:crispEdges}
 .td-count{position:absolute;top:0;right:0;padding:1px 6px;background:#2b1d14;color:#f5c542;font-size:12px}
@@ -22,10 +24,10 @@ const WIDGET_CSS = `
 .td-links a:hover{background:#ffd866}
 .td-links a:active{transform:translate(2px,2px);box-shadow:none}
 .td-qr{margin-top:8px}
-.td-qr summary{cursor:pointer;color:#f5c542}
+.td-qr summary{display:inline-block;padding:2px 6px;background:rgba(27,24,48,.85);cursor:pointer;color:#f5c542}
 .td-qr svg{display:block;width:150px;height:150px;margin-top:6px}
-.td-hint{margin:8px 0 0;font-size:11px;opacity:.65}
-@media (max-width:420px){.td{flex-direction:column;align-items:stretch}.td-scene{align-self:center}.td-side{max-width:none}}
+.td-hint{display:inline-block;margin:8px 0 0;padding:2px 6px;background:rgba(27,24,48,.8);font-size:11px;color:#cfc8de}
+@media (max-width:420px){.td{flex-direction:column;align-items:stretch}.td-scene{align-self:center}.td-side{max-width:none}.td-bg{bottom:auto;height:184px}}
 ${SCENE_CSS}
 .td-bowl.td-hop{animation:td-hop .25s}
 @keyframes td-hop{50%{transform:translateY(-1.5px)}}
@@ -71,6 +73,7 @@ export function renderWidgetMarkup(
   return `<two-dollars data-key="${counterKey(config)}" data-bowl="${target.x.toFixed(3)},${target.y.toFixed(3)}"${auto}>
 <style>${WIDGET_CSS}</style>
 <div class="td">
+<svg class="td-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 48" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${streetSvg(120, 48)}</svg>
 <button type="button" class="td-scene" aria-label="Drop a pretend coin">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true">${avatarLayers(config.avatar)}</svg>
 <span class="td-count"></span>

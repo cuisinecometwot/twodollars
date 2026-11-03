@@ -1,14 +1,13 @@
-import { bowlBox, gridToPaths } from '../avatar/compose';
+import { bowlBox } from '../avatar/compose';
 import type { WidgetConfig } from '../config';
 import { escapeXml, wrapText } from '../sign';
-import { avatarLayers, coinPaths, spriteGrid, SCENE_CSS } from './scene';
+import { avatarLayers, coinPaths, SCENE_CSS } from './scene';
+import { streetSvg } from './street';
 import { qrSvg } from './qr';
 
 export type QrModules = readonly (readonly boolean[])[];
 
 const FONT = 'ui-monospace,SFMono-Regular,Menlo,Consolas,monospace';
-
-const LANTERN = spriteGrid(['..k..', '.kkk.', 'krrrk', 'kryrk', 'krrrk', '.kkk.', '..y..']);
 
 /** "https://ko-fi.com/duke/" -> "ko-fi.com/duke" */
 export function displayUrl(url: string, max = 34): string {
@@ -25,7 +24,8 @@ export function renderReadmeSvg(config: WidgetConfig, qr: QrModules | null = nul
   const H = 208;
   const scale = 6;
   const ax = 8;
-  const ay = 8;
+  // Mat bottom lands on the sidewalk, just above the curb.
+  const ay = 0;
   const bowl = bowlBox(config.avatar);
   const coinX = bowl.x + bowl.w / 2 - 2;
   const coinLand = bowl.y - 3;
@@ -47,33 +47,18 @@ export function renderReadmeSvg(config: WidgetConfig, qr: QrModules | null = nul
 .td-coin{animation:td-drop 3.6s cubic-bezier(.5,0,1,1) infinite}
 @keyframes td-drop{0%{transform:translateY(-12px);opacity:0}8%{opacity:1}50%{transform:translateY(${coinLand}px);opacity:1}54%,100%{transform:translateY(${coinLand}px);opacity:0}}
 .td-bowl{animation:td-hop 3.6s infinite}
-@keyframes td-hop{0%,49%,60%,100%{transform:none}52%{transform:translateY(-1px)}}
-.td-glow{animation:td-glow 2.4s ease-in-out infinite alternate}
-@keyframes td-glow{from{opacity:.25}to{opacity:.6}}`;
-
-  const stars = [
-    [228, 14],
-    [300, 10],
-    [452, 18],
-    [404, 8],
-    [262, 168],
-  ]
-    .map(([x, y]) => `<rect x="${x}" y="${y}" width="2" height="2" fill="#f4efe1" opacity=".45"/>`)
-    .join('');
+@keyframes td-hop{0%,49%,60%,100%{transform:none}52%{transform:translateY(-1px)}}`;
 
   const qrBlock = qr
     ? qrSvg(qr, 112, 488, 30) +
+      `<rect x="488" y="156" width="112" height="16" fill="#2b1d14"/>` +
       `<text x="544" y="166" text-anchor="middle" font-family="${FONT}" fill="#f5c542" font-size="12">scan = give vía</text>`
     : '';
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeXml(alt)}">
 <title>${escapeXml(alt)}</title>
 <style>${css}</style>
-<rect width="${W}" height="${H}" fill="#1b1830"/>
-<rect y="176" width="${W}" height="${H - 176}" fill="#241f3a"/>
-${stars}
-<circle class="td-glow" cx="27" cy="25" r="14" fill="#f5b942"/>
-<g transform="translate(20 14) scale(3)" shape-rendering="crispEdges">${gridToPaths(LANTERN)}</g>
+<g transform="scale(4)" shape-rendering="crispEdges">${streetSvg(W / 4, H / 4)}</g>
 <g transform="translate(${ax} ${ay}) scale(${scale})" shape-rendering="crispEdges">
 ${avatarLayers(config.avatar)}
 <g transform="translate(${coinX} 0)"><g class="td-coin">${coinPaths()}</g></g>

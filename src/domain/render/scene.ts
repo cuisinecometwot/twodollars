@@ -52,5 +52,5 @@ export const SCENE_CSS = `
 .td-blink{opacity:0;animation:td-blink 4.5s steps(1) infinite}
 @keyframes td-blink{0%,93%{opacity:0}94%,97%{opacity:1}98%{opacity:0}}
 .td-bowl{transform-box:fill-box;transform-origin:50% 100%}
-@media (prefers-reduced-motion:reduce){.td-blink,.td-bowl,.td-coin,.td-glow{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.td-blink,.td-bowl,.td-coin{animation:none!important}}
 `;
