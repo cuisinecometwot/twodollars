@@ -23,5 +23,6 @@ Meme-style online begging: everyone gets a pixel avatar, a bowl, a sign and thei
 - `src/app/` — React generator UI. Third-party libs live here only (`jsqr` decode, `qrcode-generator` redraw).
 
 ## Progress
-- Done: scaffold.
-- Next: domain, widget runtime + renderers, generator UI.
+- Done: Phase 0 widget: 6 hair/5 shirt/5 bowl/5 mat/4 pet/5 held items + colour swatches; generator UI (state in URL hash); exports: README SVG (CSS-only animation), HTML snippet (`<two-dollars>`, shadow DOM, clink, localStorage counter), OBS overlay. 39 domain tests; e2e checked in headless Chromium.
+- Next: Duke embeds README card on GitHub profile to test traction; deploy to Cloudflare Pages when a domain is picked.
+- Later (Phase 1): Street with Workers + D1, reusing `domain/` checks (sign, link allowlist, QR) server-side.
